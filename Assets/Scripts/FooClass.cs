@@ -8,7 +8,15 @@ public class FooClass : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+
+		webCam = new WebCamTexture ();
+		webCam.Play();
+
+		WebCamTexture webcamTexture = new WebCamTexture();
+		Renderer renderer = GetComponent<Renderer>();
+		renderer.material.mainTexture = webcamTexture;
+		webcamTexture.Play();
+		//GetComponent<RawImage> ().texture = webCam;
 	}
 	
 	// Update is called once per frame
@@ -50,8 +58,8 @@ public class FooClass : MonoBehaviour {
 				else
                         //If y is greater than zero, set horizontal to 1, otherwise set it to -1
                         vertical = y > 0 ? 1 : -1;
-			} else {
-				int foo = 0;
+			} else if(myTouch.phase == TouchPhase.Ended) {
+				UIImageWriteToFile ();
 			}
 		}
             
@@ -67,5 +75,22 @@ public class FooClass : MonoBehaviour {
 			}
 			//AttemptMove<Wall> (horizontal, vertical);
 		}
+	}
+
+	WebCamTexture webCam;
+
+	void UIImageWriteToFile()
+	{
+		WebCamTexture webcamTexture = new WebCamTexture();
+		Renderer renderer = GetComponent<Renderer>();
+		renderer.material.mainTexture = webcamTexture;
+		webcamTexture.Play();
+		/*GameObject.CreatePrimitive
+		//var rawImagePrim = GameObject.CreatePrimitive ( typeof(UnityEngine.UI.RawImage));
+		var canvas = GameObject.Find ("Canvas");
+		var rawImage = GameObject.Find ("RawImage");//as UnityEngine.UI.RawImage;//> ();
+
+		//rawImage.texture = webCam;*/
+
 	}
 }
