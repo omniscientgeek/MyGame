@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.IO;
 
 public class FooClass : MonoBehaviour {
@@ -56,7 +57,12 @@ public class FooClass : MonoBehaviour {
                         //If y is greater than zero, set horizontal to 1, otherwise set it to -1
                         vertical = y > 0 ? 1 : -1;
 			} else if(myTouch.phase == TouchPhase.Ended) {
-				SaveImage ();
+				if (myTouch.tapCount > 2) {
+					webCamTexture.Stop ();
+					SceneManager.LoadScene ("Edit");
+				} else {
+					SaveImage ();
+				}
 			}
 		}
             
@@ -70,6 +76,7 @@ public class FooClass : MonoBehaviour {
 			if (horizontal != 0) {
 				cube.transform.Translate (Vector3.left * horizontal * Time.deltaTime);
 			}
+
 			//AttemptMove<Wall> (horizontal, vertical);
 		}
 	}
@@ -102,5 +109,14 @@ public class FooClass : MonoBehaviour {
 		//Debug.Log("WebcamSnaps");
 		Debug.Log("File Saved to Desktop/Surveillance/CamCapture/");
 
+	}
+
+	void LoadImage()
+	{
+		/*
+		Renderer renderer = GetComponent<Renderer>();
+		renderer.material.mainTexture.
+		Texture2D texture = null;
+		texture.SetPixels*/
 	}
 }
