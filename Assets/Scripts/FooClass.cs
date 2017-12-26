@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class FooClass : MonoBehaviour {
 	private Vector2 touchOrigin = -Vector2.one; //Used to store location of screen touch origin for mobile controls.
@@ -8,14 +9,10 @@ public class FooClass : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-		webCam = new WebCamTexture ();
-		webCam.Play();
-
-		WebCamTexture webcamTexture = new WebCamTexture();
+		webCamTexture = new WebCamTexture();
 		Renderer renderer = GetComponent<Renderer>();
-		renderer.material.mainTexture = webcamTexture;
-		webcamTexture.Play();
+		renderer.material.mainTexture = webCamTexture;
+		webCamTexture.Play();
 		//GetComponent<RawImage> ().texture = webCam;
 	}
 	
@@ -59,7 +56,7 @@ public class FooClass : MonoBehaviour {
                         //If y is greater than zero, set horizontal to 1, otherwise set it to -1
                         vertical = y > 0 ? 1 : -1;
 			} else if(myTouch.phase == TouchPhase.Ended) {
-				UIImageWriteToFile ();
+				SaveImage ();
 			}
 		}
             
@@ -78,19 +75,32 @@ public class FooClass : MonoBehaviour {
 	}
 
 	WebCamTexture webCam;
-
-	void UIImageWriteToFile()
+	WebCamTexture webCamTexture;
+	void SaveImage()
 	{
-		WebCamTexture webcamTexture = new WebCamTexture();
-		Renderer renderer = GetComponent<Renderer>();
-		renderer.material.mainTexture = webcamTexture;
-		webcamTexture.Play();
-		/*GameObject.CreatePrimitive
-		//var rawImagePrim = GameObject.CreatePrimitive ( typeof(UnityEngine.UI.RawImage));
-		var canvas = GameObject.Find ("Canvas");
-		var rawImage = GameObject.Find ("RawImage");//as UnityEngine.UI.RawImage;//> ();
+		Texture2D destTexture = new Texture2D(webCamTexture.width, webCamTexture.height, TextureFormat.ARGB32, false);
 
-		//rawImage.texture = webCam;*/
+		Color[] textureData = webCamTexture.GetPixels();
+
+		destTexture.SetPixels(textureData);
+		destTexture.Apply();
+		byte[] pngData = destTexture.EncodeToPNG();
+		string absolutePath = "";
+		//if(File.Exists(Application.persistentDataPath+"/capturedPic2.png"))
+		//if(File.Exists("WebcamSnaps" + "photo.png"))
+		if(File.Exists(absolutePath + "surveillanceCapture01.png"))
+		{
+			//File.Delete(Application.persistentDataPath+"/capturedPic2.png");
+			//File.Delete("WebcamSnaps" + "photo.png");
+			File.Delete(absolutePath + "surveillanceCapture01.png");
+		}
+		//File.WriteAllBytes(Application.persistentDataPath+"/capturedPic2.png",pngData);
+		//File.WriteAllBytes("WebcamSnaps" + "photo.png",pngData);
+		File.WriteAllBytes(absolutePath + "surveillanceCapture01.png", pngData);
+		//Debug.Log("pic saved to"+Application.persistentDataPath);
+
+		//Debug.Log("WebcamSnaps");
+		Debug.Log("File Saved to Desktop/Surveillance/CamCapture/");
 
 	}
 }
