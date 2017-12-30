@@ -6,13 +6,21 @@ using System.IO;
 public class EditManager : MonoBehaviour
 {
 	WebCamTexture webCamTexture;
+    GameObject btnCrop;
 
 	// Use this for initialization
 	void Start ()
-	{		webCamTexture = new WebCamTexture();
+	{
+        webCamTexture = new WebCamTexture();
 		Renderer renderer = GetComponent<Renderer>();
 		renderer.material.mainTexture = webCamTexture;
 		webCamTexture.Play();
+        var btnCrop = GameObject.Find("btnCrop") as GameObject;
+
+        foreach (var current in gameObject.GetComponents<UnityEngine.Cubemap>())
+        {
+            var foo = current;
+        }
 	
 	}
 	
@@ -21,7 +29,6 @@ public class EditManager : MonoBehaviour
 	{
 		int horizontal = 0;     //Used to store the horizontal move direction.
 		int vertical = 0;       //Used to store the vertical move direction.
-		var cube = GameObject.Find ("Cube") as GameObject;
 
 
 		//Check if Input has registered more than zero touches
@@ -35,8 +42,23 @@ public class EditManager : MonoBehaviour
 				} else {
 					SaveImage ();
 				}
-			}
-		}
+            }
+            for (int i = 0; i < Input.touchCount; ++i)
+            {
+                if (Input.GetTouch(i).phase == TouchPhase.Began)
+                {
+                    // Construct a ray from the current touch coordinates
+                    Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(i).position);
+                    RaycastHit resultInfo;
+                    // Create a particle if hit
+                    if (Physics.Raycast(ray, out resultInfo))
+                    {
+                        string foo = "";
+                        //Instantiate(particle, transform.position, transform.rotation);
+                    }
+                }
+            }
+        }
 	
 	}
 	void SaveImage()

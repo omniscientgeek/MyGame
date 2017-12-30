@@ -5,16 +5,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B9DCEC3E-588A-E40B-26F2-DDD5CD66560C}</ProjectGuid>
+    <ProjectGuid>{47EC03BE-01CA-E16B-C951-FF46E41484BB}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
-    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>iOS:9</UnityBuildTarget>
     <UnityVersion>2017.3.0f3</UnityVersion>
     <RootNamespace></RootNamespace>
@@ -291,20 +291,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="MyOwnGame.Plugins.csproj">
-      <Project>{47EC03BE-01CA-E16B-C951-FF46E41484BB}</Project>
-      <Name>MyOwnGame.Plugins</Name>
-    </ProjectReference>
-    <ProjectReference Include="MyOwnGame.Plugins.unityproj">
-      <Project>{47EC03BE-01CA-E16B-C951-FF46E41484BB}</Project>
-      <Name>MyOwnGame.Plugins</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Assets\ats Package\Demoscene\Terrain\UnityTerrainBump\CustomTerrainScript.cs" />
-    <Compile Include="Assets\Scripts\EditManager.cs" />
-    <Compile Include="Assets\Scripts\FooClass.cs" />
-    <Compile Include="Assets\Scripts\SpinningCube.cs" />
+    <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ats Package\Demoscene\Terrain\UnityTerrainBump\TerrainReplacement.shader" />

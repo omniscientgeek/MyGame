@@ -9,7 +9,10 @@ public class FooClass : MonoBehaviour {
 	
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        Application.RequestUserAuthorization(UserAuthorization.WebCam);
+        WebCamDevice[] devices = WebCamTexture.devices;
 		webCamTexture = new WebCamTexture();
 		Renderer renderer = GetComponent<Renderer>();
 		renderer.material.mainTexture = webCamTexture;

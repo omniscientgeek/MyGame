@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyOwnGame", "MyOwnGame.csproj", "{B9DCEC3E-588A-E40B-26F2-DDD5CD66560C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyOwnGame.Plugins", "MyOwnGame.Plugins.csproj", "{47EC03BE-01CA-E16B-C951-FF46E41484BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{B9DCEC3E-588A-E40B-26F2-DDD5CD66560C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9DCEC3E-588A-E40B-26F2-DDD5CD66560C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9DCEC3E-588A-E40B-26F2-DDD5CD66560C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47EC03BE-01CA-E16B-C951-FF46E41484BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47EC03BE-01CA-E16B-C951-FF46E41484BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47EC03BE-01CA-E16B-C951-FF46E41484BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47EC03BE-01CA-E16B-C951-FF46E41484BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
