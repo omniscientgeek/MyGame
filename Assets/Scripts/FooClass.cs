@@ -6,7 +6,7 @@ using System.IO;
 
 public class FooClass : MonoBehaviour {
 	private Vector2 touchOrigin = -Vector2.one; //Used to store location of screen touch origin for mobile controls.
-	
+	GUITexture BackgroundTexture;
 
 	// Use this for initialization
 	void Start ()
@@ -17,6 +17,22 @@ public class FooClass : MonoBehaviour {
 		Renderer renderer = GetComponent<Renderer>();
 		renderer.material.mainTexture = webCamTexture;
 		webCamTexture.Play();
+		Debug.Log("Initialize");
+		BackgroundTexture = gameObject.AddComponent<GUITexture>();
+		BackgroundTexture.pixelInset = new Rect(0,0,Screen.width,Screen.height);
+		//set up camera
+		string backCamName="";
+		for( int i = 0 ; i < devices.Length ; i++ ) {
+			Debug.Log("Device:"+devices[i].name+ "IS FRONT FACING:"+devices[i].isFrontFacing);
+
+			if (!devices[i].isFrontFacing) {
+				backCamName = devices[i].name;
+			}
+		}
+
+		webCamTexture = new WebCamTexture(backCamName,10000,10000,30);
+		webCamTexture.Play();
+		BackgroundTexture.texture = webCamTexture;
 		//GetComponent<RawImage> ().texture = webCam;
 	}
 	
@@ -95,7 +111,7 @@ public class FooClass : MonoBehaviour {
 		destTexture.SetPixels(textureData);
 		destTexture.Apply();
 		byte[] pngData = destTexture.EncodeToPNG();
-		string absolutePath = "";
+		string absolutePath = Application.persistentDataPath;
 		//if(File.Exists(Application.persistentDataPath+"/capturedPic2.png"))
 		//if(File.Exists("WebcamSnaps" + "photo.png"))
 		if(File.Exists(absolutePath + "surveillanceCapture01.png"))
@@ -106,6 +122,7 @@ public class FooClass : MonoBehaviour {
 		}
 		//File.WriteAllBytes(Application.persistentDataPath+"/capturedPic2.png",pngData);
 		//File.WriteAllBytes("WebcamSnaps" + "photo.png",pngData);
+		Debug.Log("File Saved to " + absolutePath + "surveillanceCapture01.png");
 		File.WriteAllBytes(absolutePath + "surveillanceCapture01.png", pngData);
 		//Debug.Log("pic saved to"+Application.persistentDataPath);
 
