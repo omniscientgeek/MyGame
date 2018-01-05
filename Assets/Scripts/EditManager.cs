@@ -12,10 +12,12 @@ public class EditManager : MonoBehaviour
 	void Start ()
 	{
         webCamTexture = new WebCamTexture();
+		var cube = GameObject.Find ("Cube") as GameObject;
+		//cube.
 		Renderer renderer = GetComponent<Renderer>();
 		renderer.material.mainTexture = webCamTexture;
+		renderer.transform.Translate (Vector3.forward /1000000);
 		webCamTexture.Play();
-        var btnCrop = GameObject.Find("btnCrop") as GameObject;
 
         foreach (var current in gameObject.GetComponents<UnityEngine.Cubemap>())
         {
@@ -36,13 +38,6 @@ public class EditManager : MonoBehaviour
 			//Store the first touch detected.
 			Touch myTouch = Input.touches [0];
 
-			if (myTouch.phase == TouchPhase.Ended) {
-				if (myTouch.tapCount > 2) {
-					SceneManager.LoadScene ("Main");
-				} else {
-					SaveImage ();
-				}
-            }
             for (int i = 0; i < Input.touchCount; ++i)
             {
                 if (Input.GetTouch(i).phase == TouchPhase.Began)
@@ -53,16 +48,36 @@ public class EditManager : MonoBehaviour
                     // Create a particle if hit
                     if (Physics.Raycast(ray, out resultInfo))
                     {
-                        string foo = "";
-                        //Instantiate(particle, transform.position, transform.rotation);
+						ProcessTouch (resultInfo);
                     }
                 }
             }
         }
-	
 	}
+
+	void ProcessTouch(RaycastHit hitInfo)
+	{
+		string btnName = hitInfo.collider.name;
+
+		switch (btnName) {
+		case "btnCamera":
+			SaveImage ();
+			break;
+		case "btnExit":
+			SceneManager.LoadScene ("Main");
+			break;
+		case "btnCrop":
+			break;
+		case "btnPaint":
+			break;
+		case "btnSave":
+			break;
+		}
+	}
+
 	void SaveImage()
 	{
+		webCamTexture.Pause ();
 		Texture2D destTexture = new Texture2D(webCamTexture.width, webCamTexture.height, TextureFormat.ARGB32, false);
 
 		Color[] textureData = webCamTexture.GetPixels();
@@ -70,7 +85,7 @@ public class EditManager : MonoBehaviour
 		destTexture.SetPixels(textureData);
 		destTexture.Apply();
 		byte[] pngData = destTexture.EncodeToPNG();
-		string absolutePath = "";
+		string absolutePath = Application.dataPath + "/";
 		//if(File.Exists(Application.persistentDataPath+"/capturedPic2.png"))
 		//if(File.Exists("WebcamSnaps" + "photo.png"))
 		if(File.Exists(absolutePath + "surveillanceCapture01.png"))

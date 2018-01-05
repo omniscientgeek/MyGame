@@ -80,7 +80,7 @@ public class FooClass : MonoBehaviour {
 					webCamTexture.Stop ();
 					SceneManager.LoadScene ("Edit");
 				} else {
-					SaveImage ();
+					//SaveImage ();
 				}
 			}
 		}
@@ -111,7 +111,7 @@ public class FooClass : MonoBehaviour {
 		destTexture.SetPixels(textureData);
 		destTexture.Apply();
 		byte[] pngData = destTexture.EncodeToPNG();
-		string absolutePath = Application.persistentDataPath;
+		string absolutePath = Application.dataPath + "/";
 		//if(File.Exists(Application.persistentDataPath+"/capturedPic2.png"))
 		//if(File.Exists("WebcamSnaps" + "photo.png"))
 		if(File.Exists(absolutePath + "surveillanceCapture01.png"))
