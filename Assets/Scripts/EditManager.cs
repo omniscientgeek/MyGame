@@ -29,6 +29,10 @@ public class EditManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		var foo = Screen.orientation;
+		if (Screen.orientation == ScreenOrientation.Landscape) {
+			int foo2 = 0;
+		}
 		int horizontal = 0;     //Used to store the horizontal move direction.
 		int vertical = 0;       //Used to store the vertical move direction.
 

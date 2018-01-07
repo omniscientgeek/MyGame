@@ -46,18 +46,19 @@ public class FooClass : MonoBehaviour {
 		//Check if Input has registered more than zero touches
 		if (Input.touchCount > 0) {
 			//Store the first touch detected.
-			Touch myTouch = Input.touches [0];
+			Touch firstTouch = Input.touches [0];
                 
 			//Check if the phase of that touch equals Began
-			if (myTouch.phase == TouchPhase.Began) {
+			if (firstTouch.phase == TouchPhase.Began) {
 				//If so, set touchOrigin to the position of that touch
-				touchOrigin = myTouch.position;
+				touchOrigin = firstTouch.position;
+
+
 			}
-                
                 //If the touch phase is not Began, and instead is equal to Ended and the x of touchOrigin is greater or equal to zero:
-			else if ((myTouch.phase == TouchPhase.Moved || myTouch.phase == TouchPhase.Stationary)) {
+			else if ((firstTouch.phase == TouchPhase.Moved || firstTouch.phase == TouchPhase.Stationary)) {
 				//Set touchEnd to equal the position of this touch
-				Vector2 touchEnd = myTouch.position;
+				Vector2 touchEnd = firstTouch.position;
                     
 				//Calculate the difference between the beginning and end of the touch on the x axis.
 				float x = touchEnd.x - touchOrigin.x;
@@ -75,12 +76,25 @@ public class FooClass : MonoBehaviour {
 				else
                         //If y is greater than zero, set horizontal to 1, otherwise set it to -1
                         vertical = y > 0 ? 1 : -1;
-			} else if(myTouch.phase == TouchPhase.Ended) {
-				if (myTouch.tapCount > 2) {
+			} else if(firstTouch.phase == TouchPhase.Ended) {
+				if (firstTouch.tapCount > 2) {
 					webCamTexture.Stop ();
 					SceneManager.LoadScene ("Edit");
 				} else {
 					//SaveImage ();
+				}
+			}
+
+			for (int i = 0; i < Input.touchCount; i++) {
+				var currentTouch = Input.GetTouch (i);
+				if (currentTouch.phase == TouchPhase.Began) {
+					// Construct a ray from the current touch coordinates
+					Ray ray = Camera.main.ScreenPointToRay (currentTouch.position);
+					RaycastHit resultInfo;
+					// Create a particle if hit
+					if (Physics.Raycast (ray, out resultInfo)) {
+						ProcessTouch (resultInfo);
+					}
 				}
 			}
 		}
@@ -98,6 +112,21 @@ public class FooClass : MonoBehaviour {
 
 			//AttemptMove<Wall> (horizontal, vertical);
 		}
+
+		//Check if Input has registered more than zero touches
+		if (Input.touchCount > 0) {
+		}
+	}
+
+	void ProcessTouch(RaycastHit hitInfo)
+	{
+		string btnName = hitInfo.collider.name;
+
+		//switch (btnName) {
+		//case "btnEdit:
+			SceneManager.LoadScene ("Main");
+			//break;
+		//}
 	}
 
 	WebCamTexture webCam;
